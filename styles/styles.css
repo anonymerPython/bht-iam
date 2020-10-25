@@ -89,6 +89,14 @@ main > ul > li {
     border-bottom: 1px solid var(--myapp-color-separator);
 }
 
+main > ul > li > .coverimg {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    grid-area: 2 / 2 / 9 / 9;
+    border: 1px solid var(--myapp-color-separator)
+}
+
 .orangespace{
     background-color: var(--myapp-color-second-separator);
     margin: 0;
@@ -96,7 +104,6 @@ main > ul > li {
 }
 
 footer {
-
     margin: 0;
     background-color: var(--myapp-color-main);
     height: var(--myapp-footer-height);
@@ -129,10 +136,10 @@ footer {
     -webkit-filter: invert(90%);
 }
 
+/*each of the elements within the list are placed within a quite fine grid. */
 .toggle-listeners{
     background-image: url("../images/glyphicons/png/glyphicons-517-menu-hamburger.png");
     background-size: 30px 30px;
-    /*float: left;*/
     grid-area: 2 / 1 / 3 / 2;
     margin: auto;
 }
@@ -140,7 +147,6 @@ footer {
 .toggle-view{
     background-image: url("../images/glyphicons/png/glyphicons-157-show-thumbnails.png");
     background-size: 30px 30px;
-    /*float: left;*/
     grid-area: 2 / 3 / 3 / 4;
     margin: auto;
 }
@@ -148,12 +154,10 @@ footer {
 .listeners-active .toggle-listeners {
     background-image: url("../images/glyphicons/png/glyphicons-560-mic-mute.png");
     background-size: 30px 30px;
-    /*float: left;*/
 }
 
 .new-item {
     background-image: url("../images/glyphicons/png/glyphicons-433-plus.png");
-    /*float: right;*/
     grid-area: 2 / 4 / 3 / 5;
     margin: auto;
 }
@@ -162,7 +166,6 @@ footer {
     margin-top: 15px;
     margin-bottom: 15px;
     background-image: url("../images/glyphicons/png/glyphicons-31-pencil.png");
-    /*float: right;*/
     justify-content: flex-end;
     margin-left: auto;
 }
@@ -170,7 +173,6 @@ footer {
 .toggle-leaveapp{
     background-image: url("../images/glyphicons/png/glyphicons-388-log-out.png");
     background-size: 30px 30px;
-    /*float: left;*/
     grid-area: 2 / 1 / 3 / 2;
     margin: auto;
 }
@@ -178,7 +180,6 @@ footer {
 .toggle-refresh{
     background-image: url("../images/glyphicons/png/glyphicons-82-refresh.png");
     background-size: 30px 30px;
-    /*float: left;*/
     grid-area: 2 / 3 / 3 / 4;
     margin: auto;
 }
@@ -218,15 +219,58 @@ footer {
     vertical-align: middle;
 }
 
-.firstimg {
-    grid-area: 2 / 2 / 9 / 9;
-    background-image: url("../images/100_200.jpeg");
-    background-size: cover;
-    border: 1px solid var(--myapp-color-separator)
-}
-
 .limenu {
     grid-area: 6 / 36 / 6 / 38;
     background-image: url("../images/glyphicons/png/glyphicons-518-option-vertical.png");
     background-size: .3rem 1rem;
 }
+
+/*tiles-view*/
+.myapp-tiles {
+    margin-left: 3vw;
+    margin-right: 3vw;
+    margin-top: 3vw;
+    display: grid;
+    grid-template-columns: repeat(3, 30vw);
+    grid-template-rows: repeat(6, 30vw);
+    grid-column-gap: 2vw;
+    grid-row-gap: 2vw;
+}
+
+.myapp-tiles > li {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    border: 1px solid var(--myapp-color-separator);
+}
+
+.myapp-tiles > li > p {
+    display: none;
+}
+.myapp-tiles > li > .playbtn {
+    display: none;
+}
+
+.myapp-tiles > li > .coverimg {
+    /*this is not pretty, but the grid does not behave as it should, at this point, 153 is a bit much :) */
+    grid-area: 1 / 1 / 4 / 153; 
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--myapp-color-separator)
+    
+}
+.myapp-tiles > li > .imgbutton {
+    margin: 0;
+}
+
+.toggle-view2{
+    background-image: url("../images/glyphicons/png/glyphicons-115-list.png");
+    background-size: 30px 30px;
+    grid-area: 2 / 3 / 3 / 4;
+    margin: auto;
+}
+
+/*end tiles view*/
