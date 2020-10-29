@@ -1,26 +1,36 @@
-{ 
-    'use-strict';
+class ViewController {
 
-    let toggleView = document.getElementById('toggleviewbtn');
-    let tilestoggles = document.getElementById('tilestoggle');
+        constructor(root){
+            console.log("created Viewcontroller " + root);
+            this.root = root;
+        }
 
-    toggleView.addEventListener('click', 
-            function(){
-                /* if tilestoggle classname myapp-tiles exists, remove, if does not exist, add - same for toggleviewbtn */
-                if(!tilestoggles.classList.contains("myapp-tiles")){
-                    console.log("does not exist");
-                    tilestoggles.classList.add('myapp-tiles');
-                } else if (tilestoggle.classList.contains("myapp-tiles")){
-                    console.log("exists");
-                    tilestoggles.classList.remove("myapp-tiles");
-                }
-                if(tilestoggles.classList.contains("myapp-tiles")){
-                    console.log("does not exist");
-                    toggleView.classList.add('toggle-view2');
-                } else if (!tilestoggle.classList.contains("myapp-tiles")){
-                    console.log("exists");
-                    toggleView.classList.remove("toggle-view2");
-                }
+        initialiseView() {
+            this.mainElement = this.root.querySelector("ul")[0];
+            console.log(this.mainElement);
+            this.prepareToggleViewmode();
+            //this.prepareFading();
+        }
+
+        prepareToggleViewmode(){
+            this.toggleButton = this.root.querySelector("#toggleviewbtn");
+            this.toggleViewElement = this.root.querySelector("#tilestoggle");
+            this.toggleButton.onclick = () => {
+                this.toggleViewElement.classList.toggle("myapp-tiles");
+                this.toggleButton.classList.toggle("toggle-view2")
             }
-    )
+        }
+
+        prepareFading() {
+            const fadingSwitch = this.root.querySelector("#toggleviewbtn");
+            fadingSwitch.onclick = () => {
+                console.log("fade!");
+            } 
+        }
 }
+
+window.onload = () => {
+    const instance = new ViewController(document.body);
+    instance.initialiseView();
+}
+

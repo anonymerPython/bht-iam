@@ -223,6 +223,7 @@ footer {
     grid-area: 6 / 36 / 6 / 38;
     background-image: url("../images/glyphicons/png/glyphicons-518-option-vertical.png");
     background-size: .3rem 1rem;
+    width: 15px;
 }
 
 /*tiles-view*/
@@ -243,7 +244,7 @@ footer {
     grid-template-rows: repeat(3, 1fr);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
-    border: 1px solid var(--myapp-color-separator);
+    /*border: 1px solid var(--myapp-color-separator);*/
 }
 
 .myapp-tiles > li > p {
@@ -254,17 +255,18 @@ footer {
 }
 
 .myapp-tiles > li > .coverimg {
-    /*this is not pretty, but the grid does not behave as it should, at this point, 153 is a bit much :) */
-    grid-area: 1 / 1 / 4 / 153; 
+    /*this is not pretty, but the grid does not behave as it should, at this point, 100 is a bit much :) anyway, i have to make some progress */
+    grid-area: 1 / 1 / 4 / 100; 
     object-fit: cover;
     width: 100%;
     height: 100%;
-    border: 1px solid var(--myapp-color-separator)
+   /* border: 1px solid var(--myapp-color-separator)*/
     
 }
 .myapp-tiles > li > .imgbutton {
     margin: 0;
 }
+
 
 .toggle-view2{
     background-image: url("../images/glyphicons/png/glyphicons-115-list.png");
@@ -272,5 +274,27 @@ footer {
     grid-area: 2 / 3 / 3 / 4;
     margin: auto;
 }
-
 /*end tiles view*/
+
+/*fading*/
+.myapp-faded {
+    opacity: 0.0;
+    transition: opacity 2s;
+}
+
+main {
+    opacity: 1.0;
+    transition: opacity 1s;
+}
+
+
+/*end fading*/
+
+/*media query for tiles view*/
+@media (min-width: 700px) {
+    .myapp-tiles {
+        display: grid;
+        grid-template-columns: repeat(5, 17vw);
+        grid-template-rows: repeat(7, 17vw);
+    }
+}
