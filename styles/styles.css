@@ -1,7 +1,7 @@
 /*variables and stuff*/
 
 :root{
-    --myapp-color-background: limegreen;
+    --myapp-color-background: white;
     --myapp-color-separator: rgb(180, 180, 180);
     --myapp-color-second-separator: rgb(219, 130, 14);
     --myapp-color-main: white;
@@ -11,6 +11,14 @@
     --myapp-greyspace-height: 3vh;
     --myapp-orangespace-height: .4vh;
 }
+
+/*
+
+Ich nutze zur Gestaltung der Oberfläche die in Chrome und Firefox integrierten funktionen zur Darstellung von
+Mobilgeräten. Orientiert habe ich mich an den Auflösungen des iPhone sowie Galaxy S8/S9.
+Fürs iPad sieht das Ganze nicht so gut aus, aber daran orientiert sich diese Darstellung nicht.
+
+*/
 
 /*Import fonts from Google */
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
@@ -213,9 +221,18 @@ footer {
 
 .playnumber {
     color: var(--myapp-color-separator);
-    grid-area: 8 / 13 / 8 / 14;
+    grid-area: 7 / 13 / 7 / 14;
+    /*place number exactly on grid, box as big as the playbutton - not pretty, but functional and hardcoded*/
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
+    width: 14px;
+    height: 14px;
     font-size: .8rem;
-    margin:0;
+    margin: auto;
+    align-items: center;
+    text-align: center;
     vertical-align: middle;
 }
 
@@ -285,6 +302,7 @@ main {
     opacity: 1.0;
     transition: opacity 1s;
 }
+
 
 
 /*end fading*/
