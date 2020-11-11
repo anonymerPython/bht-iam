@@ -67,7 +67,7 @@ class ViewController {
     menuInteraction(){
         const optElement = this.root.querySelector(".limenu");
         optElement.onclick = (evt) => {
-            console.log("evt.target.menu: " + evt.target, evt); 
+            console.log("evt.target.menu: " + evt.target, evt);
             evt.stopPropagation();
 
             const liElement = this.lookupLi(evt.target);
