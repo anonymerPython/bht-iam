@@ -11,7 +11,7 @@ class ViewController {
        // console.log(this.mainElement);
         this.toggleViewmode();
         this.listInteraction();
-        this.menuInteraction();
+       // this.menuInteraction();
         this.loadDataFromServerAndPopulateList();
         this.addingNewElements();
         this.refreshView();
@@ -45,8 +45,15 @@ class ViewController {
             console.log("evt.target.list: " + evt.target, evt);
             const liElement = this.lookupLi(evt.target);
             console.log("liElement: ", liElement);
-            if(liElement){
-                alert("click on: " + this.getTitleFromLi(liElement));
+            let clickedElement = evt.target;
+            let alertText = this.getTitleFromLi(liElement);
+            if(clickedElement instanceof HTMLButtonElement){
+                alertText += "\n" + this.getUrlFromImg(liElement);
+                if (confirm(alertText + "\n wirklich löschen?")) {
+                    ulElement.removeChild(liElement);
+                }
+            }else if(liElement){
+                alert(alertText);
             } else {
                 alert("no li could be found!");
             }
@@ -68,22 +75,6 @@ class ViewController {
         // paragraph class medianame textcontent
     }
 
-    menuInteraction(){
-        const optElement = document.querySelectorAll(".limenu");
-        optElement.onclick = (evt) => {
-            console.log("evt.target.menu: " + evt.target, evt);
-            evt.stopPropagation();
-
-            const liElement = this.lookupLi(evt.target);
-            console.log("liElement: ", liElement);
-            if (liElement){
-                alert("click on: " + this.getTitleFromLi(liElement) + " img URL is: " + this.getUrlFromImg(liElement));
-            } else {
-                alert("no li could be found"); 
-            }
-        }
-    }
-
     getUrlFromImg(liElement){
         return liElement.querySelector("img").src;
     }
@@ -96,7 +87,7 @@ class ViewController {
         addNewElementsButton.onclick = (evt) => {
             evt.stopPropagation();
             let today = this.getTodaysDate();
-            const newObj = {title: Date.now(), src: "https://placeimg.com/" + ((Date.now() % 3) + 1)*100 +"/" + ((Date.now() % 3) + 1)*100, owner: "placimg.com", added: today, numOfTags: Math.floor(Math.random() * 100)};
+            const newObj = {title: Date.now(), src: "https://placeimg.com/" + ((Date.now() % 3) + 1)*100 +"/" + ((Date.now() % 3) + 1)*100, owner: "placeimg.com", added: today, numOfTags: Math.floor(Math.random() * 100)};
             this.addNewElementToList(newObj);
         }
     }
@@ -113,6 +104,10 @@ class ViewController {
     addNewElementToList(obj){
         const ulElement = document.querySelectorAll("ul")[0];
         this.dolly = this.root.querySelector("ul li");
+        /**
+         * clone Element, remove template-id and fill it with data
+         * @type {ActiveX.IXMLDOMNode | Node}
+         */
         const newli = this.dolly.cloneNode(true);
         newli.removeAttribute("id");
         newli.querySelector(".medianame").textContent = obj.title;
@@ -120,8 +115,6 @@ class ViewController {
         newli.querySelector(".date").textContent = obj.added;
         newli.querySelector(".playnumber").textContent = obj.numOfTags;
         newli.querySelector(".coverimg").src = obj.src;
-       //newli.querySelector(".imgsrc").textContent
-        //newli.querySelector(".imgsrc").textContent = obj.owner;
         ulElement.appendChild(newli);
        // newli.scrollIntoView();
     }
