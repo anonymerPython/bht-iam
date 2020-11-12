@@ -14,6 +14,7 @@ class ViewController {
         this.menuInteraction();
         this.loadDataFromServerAndPopulateList();
         this.addingNewElements();
+        this.refreshView();
     }
 
     toggleViewmode() {
@@ -68,7 +69,7 @@ class ViewController {
     }
 
     menuInteraction(){
-        const optElement = this.root.querySelector(".limenu");
+        const optElement = document.querySelectorAll(".limenu");
         optElement.onclick = (evt) => {
             console.log("evt.target.menu: " + evt.target, evt);
             evt.stopPropagation();
@@ -94,17 +95,24 @@ class ViewController {
         const addNewElementsButton = document.getElementById("additembtn");
         addNewElementsButton.onclick = (evt) => {
             evt.stopPropagation();
-            const newObj = {title: Date.now(), src: "images/100_100.jpg"};
+            let today = this.getTodaysDate();
+            const newObj = {title: Date.now(), src: "https://placeimg.com/" + ((Date.now() % 3) + 1)*100 +"/" + ((Date.now() % 3) + 1)*100, owner: "placimg.com", added: today, numOfTags: Math.floor(Math.random() * 100)};
             this.addNewElementToList(newObj);
         }
     }
 
+    getTodaysDate(){
+        let today = new Date();
+        let dd = String(today.getDate()).padStart(2, '0');
+        let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        let yyyy = today.getFullYear();
+        today = dd + '.' + mm + '.' + yyyy;
+        return today;
+    }
+
     addNewElementToList(obj){
         const ulElement = document.querySelectorAll("ul")[0];
-        console.log("ul Element is: " + ulElement);
-
         this.dolly = this.root.querySelector("ul li");
-        console.log("diese dolly ist " + this.dolly);
         const newli = this.dolly.cloneNode(true);
         newli.removeAttribute("id");
         newli.querySelector(".medianame").textContent = obj.title;
@@ -114,10 +122,8 @@ class ViewController {
         newli.querySelector(".coverimg").src = obj.src;
        //newli.querySelector(".imgsrc").textContent
         //newli.querySelector(".imgsrc").textContent = obj.owner;
-        console.log("newli is " + newli);
-
         ulElement.appendChild(newli);
-        newli.scrollIntoView();
+       // newli.scrollIntoView();
     }
 
     loadDataFromServerAndPopulateList(){
@@ -129,6 +135,24 @@ class ViewController {
                 this.addNewElementToList(obj);
             })
         })
+    }
+
+    removeElement(){
+        //this.dolly.parentNode.removeChild(this.dolly);
+    }
+
+
+    //funktioniert technisch, aber es läd keine anderen Bilder - wieso?
+    refreshView(){
+        const refreshButton = document.getElementById("refreshbtn");
+        const ulElement = document.querySelectorAll("ul")[0];
+        refreshButton.onclick = (evt) =>{
+            evt.stopPropagation();
+            while (ulElement.childElementCount > 1) {
+                ulElement.removeChild(ulElement.lastChild);
+            }
+            this.loadDataFromServerAndPopulateList();
+        }
     }
 }
 

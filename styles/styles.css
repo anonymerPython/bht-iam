@@ -194,14 +194,14 @@ footer {
 
 .imgsrc {
     color: var(--myapp-color-separator);
-    grid-area: 2 / 11 / 2 / 15 ;
+    grid-area: 2 / 11 / 2 / 14 ;
     font-size: .8rem;
     margin: 0;
 }
 
 .date {
     color: var(--myapp-color-separator);
-    grid-area: 2 / 34 / 2 /38;
+    grid-area: 2 / 32 / 2 / 38;
     font-size: .8rem;
     margin: 0;
 }
