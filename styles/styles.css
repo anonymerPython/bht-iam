@@ -217,6 +217,7 @@ footer {
     background-size: .8rem .8rem;
     grid-area: 7 / 10 / 7 / 14;
     margin: 0;
+    margin-left: 3px;
 }
 
 .playnumber {
@@ -249,7 +250,7 @@ footer {
     margin-top: 3vw;
     display: grid;
     grid-template-columns: repeat(3, 30vw);
-    grid-template-rows: repeat(6, 30vw);
+    grid-auto-rows: 30vw;
     grid-column-gap: 2vw;
     grid-row-gap: 2vw;
 }
@@ -302,7 +303,9 @@ main {
     opacity: 1.0;
     transition: opacity 1s;
 }
-
+#template {
+    display: none;
+}
 
 
 /*end fading*/

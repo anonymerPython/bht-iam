@@ -1,16 +1,19 @@
 class ViewController {
 
+
     constructor(root) {
         console.log("created Viewcontroller " + root);
         this.root = root;
     }
 
     initialiseView() {
-        this.mainElement = this.root.querySelector("ul")[0];
-        console.log(this.mainElement);
+       // this.mainElement = document.querySelectorAll("ul")[0];
+       // console.log(this.mainElement);
         this.toggleViewmode();
         this.listInteraction();
         this.menuInteraction();
+        this.loadDataFromServerAndPopulateList();
+        this.addingNewElements();
     }
 
     toggleViewmode() {
@@ -36,7 +39,7 @@ class ViewController {
     }
 
     listInteraction() {
-        const ulElement = this.root.querySelector("ul");
+        const ulElement = document.querySelectorAll("ul")[0];
         ulElement.onclick = (evt) => {
             console.log("evt.target.list: " + evt.target, evt);
             const liElement = this.lookupLi(evt.target);
@@ -84,8 +87,48 @@ class ViewController {
         return liElement.querySelector("img").src;
     }
 
+    addingNewElements(){
+        const dolly  = document.getElementById("template");
+        //this.dolly.parentNode.removeChild(this.dolly); //remove Element
+        console.log("template dolly is " + dolly);
+        const addNewElementsButton = document.getElementById("additembtn");
+        addNewElementsButton.onclick = (evt) => {
+            evt.stopPropagation();
+            const newObj = {title: Date.now(), src: "images/100_100.jpg"};
+            this.addNewElementToList(newObj);
+        }
+    }
+
     addNewElementToList(obj){
-        const newli = 0;
+        const ulElement = document.querySelectorAll("ul")[0];
+        console.log("ul Element is: " + ulElement);
+
+        this.dolly = this.root.querySelector("ul li");
+        console.log("diese dolly ist " + this.dolly);
+        const newli = this.dolly.cloneNode(true);
+        newli.removeAttribute("id");
+        newli.querySelector(".medianame").textContent = obj.title;
+        newli.querySelector(".imgsrc").textContent = obj.owner;
+        newli.querySelector(".date").textContent = obj.added;
+        newli.querySelector(".playnumber").textContent = obj.numOfTags;
+        newli.querySelector(".coverimg").src = obj.src;
+       //newli.querySelector(".imgsrc").textContent
+        //newli.querySelector(".imgsrc").textContent = obj.owner;
+        console.log("newli is " + newli);
+
+        ulElement.appendChild(newli);
+        newli.scrollIntoView();
+    }
+
+    loadDataFromServerAndPopulateList(){
+        xhr("GET","data/items.json", null, (xhrobj) => {
+            //alert("xhrobj: " + xhrobj);
+            const objs = JSON.parse(xhrobj.responseText);
+            //alert("objs: " + JSON.stringify(objs));
+            objs.forEach(obj => {
+                this.addNewElementToList(obj);
+            })
+        })
     }
 }
 
